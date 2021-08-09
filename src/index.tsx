@@ -67,7 +67,7 @@ const App = () => {
 
   return (
     <div>
-      <CodeEditor />
+      <CodeEditor initialValue='const b=1;' />
       <textarea
         value={input}
         onChange={e => setInput(e.target.value)}
