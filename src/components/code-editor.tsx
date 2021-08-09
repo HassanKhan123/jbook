@@ -1,7 +1,16 @@
 import MonacoEditor from '@monaco-editor/react';
 
 const CodeEditor = () => {
-  return <MonacoEditor height='500px' />;
+  return (
+    <MonacoEditor
+      height='500px'
+      language='javascript'
+      theme='vs-dark'
+      options={{
+        wordWrap: 'on',
+      }}
+    />
+  );
 };
 
 export default CodeEditor;
