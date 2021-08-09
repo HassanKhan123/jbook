@@ -7,7 +7,6 @@ import { fetchPlugin } from './plugins/fetch-plugin';
 
 const App = () => {
   const [input, setInput] = useState('');
-  const [code, setCode] = useState('');
 
   const ref = useRef<any>();
   const iframe = useRef<any>();
@@ -75,8 +74,12 @@ const App = () => {
         <button onClick={submitHandler}>Submit</button>
       </div>
 
-      <pre>{code}</pre>
-      <iframe srcDoc={html} sandbox='allow-scripts' ref={iframe} />
+      <iframe
+        srcDoc={html}
+        sandbox='allow-scripts'
+        ref={iframe}
+        title='preview'
+      />
     </div>
   );
 };
