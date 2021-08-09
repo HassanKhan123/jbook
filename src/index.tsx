@@ -10,6 +10,7 @@ const App = () => {
   const [code, setCode] = useState('');
 
   const ref = useRef<any>();
+  const iframe = useRef<any>();
 
   useEffect(() => {
     startService();
@@ -36,13 +37,23 @@ const App = () => {
       },
     });
 
-    setCode(result.outputFiles[0].text);
+    // setCode(result.outputFiles[0].text);
+    iframe.current.contentWindow.postMessage(result.outputFiles[0].text, '*');
   };
 
   const html = `
+   <html>
+   <head>
+   </head>
+   <body>
+    <div id="root"></div>
     <script>
-      ${code}
+      window.addEventListener('message',(even) => {
+        eval(event.data)
+      },false)
     </script>
+   </body>
+   </html>
   `;
 
   return (
@@ -56,7 +67,7 @@ const App = () => {
       </div>
 
       <pre>{code}</pre>
-      <iframe srcDoc={html} sandbox='allow-scripts' />
+      <iframe srcDoc={html} sandbox='allow-scripts' ref={iframe} />
     </div>
   );
 };
