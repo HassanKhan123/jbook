@@ -7,7 +7,7 @@ import { fetchPlugin } from './plugins/fetch-plugin';
 import CodeEditor from './components/code-editor';
 
 const App = () => {
-  const [input, setInput] = useState('');
+  const [input, setInput] = useState<string | undefined>('');
 
   const ref = useRef<any>();
   const iframe = useRef<any>();
