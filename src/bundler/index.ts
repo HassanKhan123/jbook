@@ -1,11 +1,11 @@
 import * as esbuild from 'esbuild-wasm';
 
-import { unpkgPathPlugin } from '../plugins/unpkg-path-plugin';
-import { fetchPlugin } from '../plugins/fetch-plugin';
+import { unpkgPathPlugin } from './plugins/unpkg-path-plugin';
+import { fetchPlugin } from './plugins/fetch-plugin';
 
 let service: esbuild.Service;
 
-export default async (rawCode: string | undefined) => {
+const bundler = async (rawCode: string | undefined) => {
   if (!service) {
     service = await esbuild.startService({
       worker: true,
@@ -26,3 +26,5 @@ export default async (rawCode: string | undefined) => {
 
   return result.outputFiles[0].text;
 };
+
+export default bundler;
