@@ -13,18 +13,27 @@ const bundler = async (rawCode: string | undefined) => {
     });
   }
 
-  const result = await service.build({
-    entryPoints: ['index.js'],
-    bundle: true,
-    write: false,
-    plugins: [unpkgPathPlugin(), fetchPlugin(rawCode)],
-    define: {
-      'process.env.NODE_ENV': '"production"',
-      global: 'window',
-    },
-  });
-
-  return result.outputFiles[0].text;
+  try {
+    const result = await service.build({
+      entryPoints: ['index.js'],
+      bundle: true,
+      write: false,
+      plugins: [unpkgPathPlugin(), fetchPlugin(rawCode)],
+      define: {
+        'process.env.NODE_ENV': '"production"',
+        global: 'window',
+      },
+    });
+    return {
+      code: result.outputFiles[0].text,
+      err: '',
+    };
+  } catch (error: any) {
+    return {
+      code: '',
+      err: error.message,
+    };
+  }
 };
 
 export default bundler;
