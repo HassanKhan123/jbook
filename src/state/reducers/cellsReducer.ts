@@ -30,7 +30,17 @@ const reducer = (
     case ActionTypes.INSERT_CELL_BEFORE:
       return state;
     case ActionTypes.UPDATE_CELL:
-      return state;
+      const { id, content } = action.payload;
+      return {
+        ...state,
+        data: {
+          ...state.data,
+          [id]: {
+            ...state.data[id],
+            content,
+          },
+        },
+      };
     default:
       return state;
   }
